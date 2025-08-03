@@ -1,1 +1,12 @@
-Cosmodium's duckeylogger
+ahcjedickin AHHHH 
+
+
+they wont survive
+
+
+
+AHHHHH ALEOGJIJAXCNCUNHUHHHHH
+
+
+
+ABWDBEB ERROR ERROR 
